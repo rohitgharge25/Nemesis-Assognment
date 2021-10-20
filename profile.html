@@ -1,0 +1,57 @@
+{% extends 'app1/base.html' %}
+
+{% block content %}
+
+
+<div class="col-sm-7">
+        <h3 class="text-center alert alert-info">DETAILS</h3>
+        {% if f  %}
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">USER_NAME</th>
+                    <th scope="col">FIRST_NAME</th>
+                    <th scope="col">LAST_NAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">PASSWORD</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+             {% for st in f %}
+                <tr>
+                    <th scope="row">{{st.id}}</th>
+                    <td>{{st.user_name}}</td>
+                    <td>{{st.first_name}}</td>
+                    <td>{{st.last_name}}</td>
+                    <td>{{st.Email}}</td>
+                    <td>{{st.password}}</td>
+
+                    <td>
+                        <a href="{% url 'updatedata' st.id %}" class="btn btn-warning btn-sm">UPDATE</a>
+                        <form action="{% url 'deletedata' st.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger " value="Delete">
+                        </form>
+                    </td>
+
+
+                </tr>
+             {% endfor %}
+            </tbody>
+
+        </table>
+
+
+        {% else %}
+         <h4 class="text-center alert alert-warning">NO record found</h4>
+        {% endif %}
+    </div>
+<form action="" method="post">
+    <a href="{% url 'login' %}" class="btn btn-success">LOGOUT</a>
+</form>
+</div>
+
+{% endblock content %}
